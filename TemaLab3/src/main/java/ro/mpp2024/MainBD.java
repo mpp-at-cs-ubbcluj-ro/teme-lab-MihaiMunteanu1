@@ -19,6 +19,7 @@ public class MainBD {
             return; // Exit the program if properties are not loaded
         }
 
+        System.out.println("Adaugam o masina:");
         CarRepository carRepo=new CarsDBRepository(props);
         carRepo.add(new Car("Tesla","Model S", 2019));
         System.out.println("Toate masinile din db");
@@ -30,7 +31,7 @@ public class MainBD {
             System.out.println(car);
 
         System.out.println("Modificam o masina:");
-        Car car = new Car("Tesla","Model S", 2024);
+        Car car = new Car("Tesla","Model S", 1010);
         carRepo.update(4,car);
         System.out.println("Toate masinile din db");
         for(Car car1:carRepo.findAll())
