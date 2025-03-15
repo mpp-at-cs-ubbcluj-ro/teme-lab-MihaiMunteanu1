@@ -1,0 +1,61 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group 'ro.mpp2024'
+version '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.23.1'
+  //implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+  //implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+  implementation 'org.springframework:spring-context:6.1.14'
+
+  runtimeOnly group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.2'
+}
+
+javafx {
+  version = "17"
+  modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+application {
+  mainClass = 'ro.mpp2024.temalab4.MainFXSpring'
+}
+jar{
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  manifest {
+    attributes(
+            'Main-Class': 'MainFXSpring'
+    )
+  }
+  from{
+    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
+test {
+  useJUnitPlatform()
+}
+sourceSets {
+  main {
+    resources {
+      srcDir 'src/main/resources'
+    }
+  }
+}
+
+tasks.withType(ProcessResources).configureEach {
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE // or EXCLUDE, WARN
+}
