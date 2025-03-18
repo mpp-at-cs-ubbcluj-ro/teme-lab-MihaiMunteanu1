@@ -32,7 +32,7 @@ public class MainBD {
             System.out.println(car);
 
         System.out.println("Modificam o masina:");
-        Car car = new Car("Tesla","Model S", 10);
+        Car car = new Car("Tesla","Model P", 10);
         carRepo.update(4,car);
         System.out.println("Toate masinile din db");
         for(Car car1:carRepo.findAll())
