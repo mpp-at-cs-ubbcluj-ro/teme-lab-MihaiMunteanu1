@@ -46,6 +46,7 @@ public class MainFXSpring extends Application {
         ApplicationContext context = new AnnotationConfigApplicationContext(RepairShopConfig.class);
 
         ComputerRepairServices services = context.getBean(ComputerRepairServices.class);
+
         return services;
     }
 }
