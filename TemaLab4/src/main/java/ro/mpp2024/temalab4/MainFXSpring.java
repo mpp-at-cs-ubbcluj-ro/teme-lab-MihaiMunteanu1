@@ -1,5 +1,6 @@
 package ro.mpp2024.temalab4;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ro.mpp2024.temalab4.ctrl.ComputerRepairShopController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,17 +17,18 @@ public class MainFXSpring extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ro/mpp2024/temalab4/RepairShopWindow.fxml"));            Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ro/mpp2024/temalab4/RepairShopWindow.fxml"));
+            Parent root = loader.load();
             ComputerRepairShopController ctrl = loader.getController();
             ctrl.setService(getService());
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Computer Repairs Shop");
             primaryStage.show();
-        }catch(Exception e){
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error ");
-            alert.setContentText("Error while starting app "+e);
+            alert.setContentText("Error while starting app " + e);
             alert.showAndWait();
             System.out.println(e);
         }
@@ -37,13 +39,13 @@ public class MainFXSpring extends Application {
     }
 
     static ComputerRepairServices getService() throws ServicesException {
-            // pentru configurare folosind XML
-            //ApplicationContext context=new ClassPathXmlApplicationContext("RepairShopConfig.xml");
+        // pentru configurare folosind XML
+        // ApplicationContext context = new ClassPathXmlApplicationContext("ro/mpp2024/temalab4/RepairShopConfig.xml");
 
-            //pentru configurare folosind JavaConfig
-            ApplicationContext context=new AnnotationConfigApplicationContext(RepairShopConfig.class);
-            ComputerRepairServices services=context.getBean(ComputerRepairServices.class);
-            return services;
+        // pentru configurare folosind JavaConfig
+        ApplicationContext context = new AnnotationConfigApplicationContext(RepairShopConfig.class);
 
+        ComputerRepairServices services = context.getBean(ComputerRepairServices.class);
+        return services;
     }
 }
